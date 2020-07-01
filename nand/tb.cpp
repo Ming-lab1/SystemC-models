@@ -1,0 +1,33 @@
+
+#ifndef _TB_CPP_
+#define _TB_CPP_
+
+#include <systemc.h>
+
+SC_MODULE(tb) {
+  sc_out<bool > a, b;
+  sc_in<bool > res;
+  sc_in_clk clk;
+
+  void gen() {
+    wait(); a=0; b=0;
+    wait(); a=0; b=1;
+    wait(); a=1; b=0;
+    wait(); a=1; b=1;
+    wait(100);
+  }
+
+  void display() {
+    cout<<"a="<<a<<", b="<<b<<", res="<<res<<endl;
+  }
+
+  SC_CTOR(tb) {
+    SC_CTHREAD(gen, clk.pos());
+    SC_METHOD(display);
+    sensitive<<a<<b<<res;
+    dont_initialize();
+  }
+};
+
+#endif
+
