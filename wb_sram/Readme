@@ -1,0 +1,5 @@
+
+Action items:
+1. replace SC_LIB and SC_INC with your own systemc directory.
+2. make test >& log
+3. make clean
